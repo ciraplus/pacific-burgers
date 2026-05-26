@@ -287,19 +287,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0;
-  max-width: 1320px;
-  margin: 0 auto;
+  /* width:max-content lets the container grow to fit all items so
+     overflow-x:auto on the parent can scroll from the left edge.
+     min-width:100% keeps it full-width on desktop for centering. */
+  width: max-content;
+  min-width: 100%;
   padding: 0 20px;
 }
 .category-nav-link {
   font-family: var(--font-mono);
   font-size: 11px;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.12em;
   color: var(--muted);
   text-decoration: none;
-  padding: 14px 18px;
+  padding: 14px 16px;
   white-space: nowrap;
   border-bottom: 2px solid transparent;
   margin-bottom: -2px;
@@ -775,9 +777,6 @@ body {
   .hero-accordion-item:not(.active) {
     flex: 0 0 52px;
   }
-  .category-nav-inner {
-    justify-content: flex-start;
-  }
   .burgers-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -822,11 +821,6 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
-  }
-  .category-nav-link {
-    padding: 12px 14px;
-    font-size: 10px;
-    letter-spacing: 0.1em;
   }
   .burgers-grid {
     grid-template-columns: 1fr;
