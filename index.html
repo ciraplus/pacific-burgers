@@ -92,8 +92,7 @@ body {
   flex-shrink: 0;
 }
 .nav-logo img {
-  height: 40px;
-  width: auto;
+  width: 150px;
   object-fit: contain;
   mix-blend-mode: lighten;
 }
@@ -925,9 +924,8 @@ body {
       <img src="mpm51syt-pacifichamburgers-logo.jpeg" alt="Pacific Hamburgers">
     </a>
     <ul class="nav-links">
-      <li><a href="#burgers">Burgers</a></li>
-      <li><a href="#sides">Sides</a></li>
-      <li><a href="#shakes">Shakes</a></li>
+      <li><a href="#" id="nav-inicio">Inicio</a></li>
+      <li><a href="#burgers">Menú</a></li>
       <li><a href="#limited">Limited</a></li>
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#ubicacion">Ubicación</a></li>
@@ -940,12 +938,8 @@ body {
 <!-- Mobile Menu -->
 <div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
   <button class="mobile-menu-close" id="menu-close" aria-label="Cerrar menú">✕</button>
-  <a href="#burgers" onclick="closeMobileMenu()">Burgers</a>
-  <a href="#sides" onclick="closeMobileMenu()">Sides</a>
-  <a href="#sauces" onclick="closeMobileMenu()">Sauces</a>
-  <a href="#shakes" onclick="closeMobileMenu()">Shakes</a>
-  <a href="#drinks" onclick="closeMobileMenu()">Drinks</a>
-  <a href="#cookies" onclick="closeMobileMenu()">Cookies</a>
+  <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});closeMobileMenu()">Inicio</a>
+  <a href="#burgers" onclick="closeMobileMenu()">Menú</a>
   <a href="#limited" onclick="closeMobileMenu()">Limited</a>
   <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
   <a href="#ubicacion" onclick="closeMobileMenu()">Ubicación</a>
@@ -1482,6 +1476,9 @@ body {
 
   function openCart()  { cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
   function closeCart() { cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+  var navInicio = document.getElementById('nav-inicio');
+  if (navInicio) navInicio.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
   if (cartTrigger) cartTrigger.addEventListener('click', function (e) { e.preventDefault(); openCart(); });
   if (fabOrder)    fabOrder.addEventListener('click', openCart);
