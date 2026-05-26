@@ -1,0 +1,1567 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pacific Hamburgers — David, Chiriquí</title>
+<meta name="description" content="Smash burgers hechas con actitud. Ingredientes honestos en el corazón de David, Chiriquí, Panamá.">
+<meta property="og:title" content="Pacific Hamburgers — David, Chiriquí">
+<meta property="og:description" content="Smash burgers hechas con actitud. Ingredientes honestos en el corazón de David.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#121212">
+
+<style>
+@font-face {
+  font-family: 'Advercase';
+  src: local('Advercase Pro'), local('Advercase');
+  font-weight: 700 900;
+  font-display: swap;
+}
+
+:root {
+  --bg: #121212;
+  --surface: #1a1a1a;
+  --surface-elevated: #222222;
+  --fg: #fbf7ec;
+  --muted: #888880;
+  --border: #000000;
+  --accent: #db781a;
+  --accent-light: #f09030;
+  --shadow: 8px 8px 0px 0px #000000;
+  --border-w: 3px;
+  --font-display: 'Advercase', Impact, 'Arial Black', 'Helvetica Neue', sans-serif;
+  --font-body: 'Helvetica Neue LT Pro', 'Helvetica Neue', Helvetica, -apple-system, system-ui, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Monaco, Consolas, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ── Utility ── */
+.mono { font-family: var(--font-mono); }
+.accent { color: var(--accent); }
+
+.bcard {
+  background: var(--surface);
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  position: relative;
+}
+.bcard:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px 0px #000000;
+}
+
+/* ══════════════ HEADER / NAV ══════════════ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(18, 18, 18, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: var(--border-w) solid var(--border);
+  padding: 0 20px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.nav-logo img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  mix-blend-mode: lighten;
+}
+.nav-links {
+  display: flex;
+  gap: 24px;
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.12s;
+}
+.nav-links a:hover { color: var(--fg); }
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-decoration: none;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0px 0px #000;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.nav-cta:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000;
+}
+.nav-hamburger {
+  display: none;
+  background: none;
+  border: 2px solid var(--fg);
+  color: var(--fg);
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  place-items: center;
+}
+
+/* ══════════════ MOBILE MENU ══════════════ */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.mobile-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 8vw, 36px);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-decoration: none;
+  transition: color 0.12s;
+}
+.mobile-menu a:hover { color: var(--accent); }
+.mobile-menu-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  background: none;
+  border: 2px solid var(--fg);
+  color: var(--fg);
+  width: 44px;
+  height: 44px;
+  font-size: 22px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+/* ══════════════ CART ══════════════ */
+.cart-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+.cart-overlay.open { opacity: 1; pointer-events: auto; }
+.cart-drawer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 400px;
+  max-width: 90vw;
+  height: 100%;
+  background: var(--surface);
+  border-left: var(--border-w) solid #000;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+.cart-overlay.open .cart-drawer { transform: translateX(0); }
+.cart-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: var(--border-w) solid #000;
+}
+.cart-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+.cart-close {
+  background: none;
+  border: 2px solid var(--fg);
+  color: var(--fg);
+  width: 36px;
+  height: 36px;
+  font-size: 18px;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.1s, color 0.1s;
+}
+.cart-close:hover { background: var(--fg); color: #000; }
+.cart-body {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cart-empty { text-align: center; color: var(--muted); }
+.cart-empty-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.4; }
+.cart-empty p {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+/* ══════════════ HERO ══════════════ */
+.hero {
+  margin-top: 64px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: calc(100vh - 64px);
+}
+
+/* Category sub-nav */
+.category-nav {
+  position: sticky;
+  top: 64px;
+  z-index: 90;
+  background: rgba(18, 18, 18, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.category-nav::-webkit-scrollbar { display: none; }
+.category-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.category-nav-link {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 14px 18px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: color 0.12s, border-color 0.12s;
+}
+.category-nav-link:hover { color: var(--fg); }
+.category-nav-link.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* Hero accordion */
+.hero-accordion {
+  display: flex;
+  gap: 4px;
+  flex: 1 1 0;
+  min-height: 420px;
+  width: 100%;
+}
+.hero-accordion-item {
+  position: relative;
+  flex: 0 0 72px;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+  border: var(--border-w) solid var(--border);
+  box-shadow: var(--shadow);
+  transition: flex 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.hero-accordion-item.active { flex: 1 1 0; }
+.hero-accordion-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-accordion-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+  pointer-events: none;
+}
+.hero-accordion-label {
+  position: absolute;
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fg);
+  white-space: nowrap;
+  transition: all 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.hero-accordion-item.active .hero-accordion-label {
+  bottom: 24px;
+  left: 24px;
+  transform: rotate(0deg);
+  font-size: 13px;
+}
+.hero-accordion-item:not(.active) .hero-accordion-label {
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-90deg);
+  transform-origin: center center;
+  font-size: 11px;
+  opacity: 0.85;
+}
+.hero-accordion-tag {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  left: 16px;
+  padding: 4px 10px;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.hero-accordion-item.active .hero-accordion-tag { opacity: 1; }
+.hero-accordion-item.bcard:hover {
+  transform: none;
+  box-shadow: var(--shadow);
+}
+
+.hero-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.hero-tagline {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 480px;
+}
+.hero-tagline strong { color: var(--fg); font-weight: 600; }
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: var(--surface-elevated);
+  border: 2px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+  flex-shrink: 0;
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* ══════════════ SECTION HEADINGS ══════════════ */
+.section-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: var(--border-w) solid var(--border);
+}
+.section-heading h2 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.section-heading .counter {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+
+/* ══════════════ MENU SECTIONS ══════════════ */
+.burgers-section {
+  padding: 80px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.burgers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.burger-card { cursor: pointer; }
+.burger-card-img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  position: relative;
+}
+.burger-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.burger-card:hover .burger-card-img img { transform: scale(1.06); }
+.burger-card-body {
+  padding: 20px;
+  border-top: var(--border-w) solid var(--border);
+}
+.burger-card-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+.burger-card-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.burger-card-number {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 6px;
+}
+
+/* ══════════════ LIMITED BITES ══════════════ */
+.limited-section {
+  padding: 80px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.limited-banner {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.limited-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 460px;
+}
+.limited-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.limited-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px;
+}
+.limited-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  background: var(--accent);
+  color: #000;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  border: 2px solid #000;
+  margin-bottom: 10px;
+  align-self: flex-start;
+}
+.limited-card-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+/* ══════════════ BRAND / ABOUT ══════════════ */
+.brand-section {
+  padding: 100px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.brand-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+.brand-rules { padding: 40px; }
+.brand-rules-title {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 32px;
+}
+.brand-rule {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.brand-rule strong { color: var(--fg); font-weight: 600; }
+.brand-purpose { padding: 40px; }
+.brand-purpose-kicker {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin-bottom: 16px;
+}
+.brand-purpose p { font-size: 16px; line-height: 1.8; color: var(--muted); }
+.brand-purpose p + p { margin-top: 20px; }
+
+/* ══════════════ LOCATION ══════════════ */
+.location-section {
+  padding: 80px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.location-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.location-info {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.location-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+.location-address {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
+.location-detail {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+.location-detail strong { color: var(--fg); }
+.location-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+.location-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: transparent;
+  color: var(--fg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  border: 2px solid var(--fg);
+  box-shadow: 4px 4px 0px 0px #000;
+  transition: transform 0.1s, box-shadow 0.1s, background 0.1s, color 0.1s;
+}
+.location-link:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #000;
+  background: var(--fg);
+  color: #000;
+}
+.location-map {
+  min-height: 380px;
+  background: var(--surface-elevated);
+  position: relative;
+}
+.location-map iframe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+  border: 0;
+  filter: grayscale(1) invert(1) contrast(1.1);
+}
+
+/* ══════════════ FOOTER ══════════════ */
+.footer {
+  border-top: var(--border-w) solid var(--border);
+  background: var(--bg);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 20px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.footer-logo span { color: var(--accent); }
+.footer-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+}
+.footer-social { display: flex; gap: 16px; }
+.footer-social a {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  transition: color 0.12s;
+}
+.footer-social a:hover { color: var(--accent); }
+
+/* ══════════════ FAB ══════════════ */
+.fab {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: var(--accent);
+  color: #000;
+  border: none;
+  border-top: var(--border-w) solid #000;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 18px 24px;
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: background 0.12s;
+}
+.fab:active { background: var(--accent-light); }
+.fab-icon { font-size: 20px; }
+
+/* ══════════════ RESPONSIVE ══════════════ */
+
+/* Tablet Landscape — 1024px */
+@media (max-width: 1024px) {
+  .hero {
+    min-height: auto;
+    padding-top: 20px;
+  }
+  .hero-accordion {
+    min-height: 320px;
+  }
+  .hero-accordion-item:not(.active) {
+    flex: 0 0 52px;
+  }
+  .burgers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .limited-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .limited-card:last-child {
+    grid-column: 1 / -1;
+    min-height: 300px;
+  }
+  .brand-grid {
+    grid-template-columns: 1fr;
+  }
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+  .location-map {
+    min-height: 300px;
+  }
+}
+
+/* Tablet Portrait — 768px */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .nav-hamburger { display: grid; }
+  .fab { display: flex; }
+  body { padding-bottom: 64px; }
+
+  .hero-accordion {
+    min-height: 260px;
+    gap: 3px;
+  }
+  .hero-accordion-item:not(.active) {
+    flex: 0 0 44px;
+  }
+  .hero-accordion-item:not(.active) .hero-accordion-label {
+    bottom: 64px;
+    font-size: 10px;
+  }
+  .hero-bottom-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .burgers-grid {
+    grid-template-columns: 1fr;
+  }
+  .limited-banner {
+    grid-template-columns: 1fr;
+  }
+  .limited-card {
+    min-height: 340px;
+  }
+  .limited-card:last-child {
+    grid-column: auto;
+  }
+  .brand-rules { padding: 24px; }
+  .brand-purpose { padding: 24px; }
+  .brand-rules-title { font-size: 36px; }
+  .location-info { padding: 24px; }
+  .location-address { font-size: 22px; }
+  .footer-inner {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  .footer-social { justify-content: center; }
+}
+
+/* Mobile Landscape — 576px */
+@media (max-width: 576px) {
+  .category-nav-inner {
+    justify-content: flex-start;
+  }
+  .category-nav-link {
+    padding: 12px 14px;
+    font-size: 10px;
+  }
+  .hero-accordion {
+    min-height: 220px;
+  }
+  .hero-accordion-item:not(.active) {
+    flex: 0 0 40px;
+  }
+  .burgers-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .limited-banner {
+    grid-template-columns: 1fr 1fr;
+  }
+  .limited-card {
+    min-height: 240px;
+  }
+  .limited-card:last-child {
+    grid-column: 1 / -1;
+    min-height: 200px;
+  }
+  .burgers-section,
+  .limited-section,
+  .brand-section,
+  .location-section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+}
+
+/* Mobile Portrait — 430px */
+@media (max-width: 430px) {
+  .hero { padding: 10px; gap: 10px; }
+  .hero-accordion {
+    min-height: 200px;
+    gap: 2px;
+  }
+  .hero-accordion-item:not(.active) { flex: 0 0 34px; }
+  .hero-accordion-item:not(.active) .hero-accordion-label {
+    bottom: 52px;
+    font-size: 9px;
+  }
+  .hero-tagline { font-size: 14px; }
+  .burgers-grid { grid-template-columns: 1fr; }
+  .limited-banner {
+    grid-template-columns: 1fr;
+  }
+  .limited-card:last-child { grid-column: auto; }
+  .burgers-section,
+  .limited-section,
+  .brand-section,
+  .location-section {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+  .brand-rules-title { font-size: 30px; }
+  .brand-rules { padding: 20px; }
+  .brand-purpose { padding: 20px; }
+  .location-info { padding: 20px; }
+  .location-address { font-size: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════ HEADER ══════════════ -->
+<header>
+  <nav class="nav" aria-label="Navegación principal">
+    <a href="#" class="nav-logo" aria-label="Pacific Hamburgers">
+      <img src="mpm51syt-pacifichamburgers-logo.jpeg" alt="Pacific Hamburgers">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#burgers">Burgers</a></li>
+      <li><a href="#sides">Sides</a></li>
+      <li><a href="#shakes">Shakes</a></li>
+      <li><a href="#limited">Limited</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#ubicacion">Ubicación</a></li>
+    </ul>
+    <a href="#order" class="nav-cta" id="cart-trigger">Ordenar ↗</a>
+    <button class="nav-hamburger" id="menu-open" aria-label="Abrir menú">☰</button>
+  </nav>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menú de navegación">
+  <button class="mobile-menu-close" id="menu-close" aria-label="Cerrar menú">✕</button>
+  <a href="#burgers" onclick="closeMobileMenu()">Burgers</a>
+  <a href="#sides" onclick="closeMobileMenu()">Sides</a>
+  <a href="#sauces" onclick="closeMobileMenu()">Sauces</a>
+  <a href="#shakes" onclick="closeMobileMenu()">Shakes</a>
+  <a href="#drinks" onclick="closeMobileMenu()">Drinks</a>
+  <a href="#cookies" onclick="closeMobileMenu()">Cookies</a>
+  <a href="#limited" onclick="closeMobileMenu()">Limited</a>
+  <a href="#nosotros" onclick="closeMobileMenu()">Nosotros</a>
+  <a href="#ubicacion" onclick="closeMobileMenu()">Ubicación</a>
+</div>
+
+<!-- Cart -->
+<div class="cart-overlay" id="cart-overlay" role="dialog" aria-modal="true" aria-label="Tu orden">
+  <div class="cart-drawer">
+    <div class="cart-header">
+      <div class="cart-title">Tu Orden</div>
+      <button class="cart-close" id="cart-close" aria-label="Cerrar carrito">✕</button>
+    </div>
+    <div class="cart-body">
+      <div class="cart-empty">
+        <div class="cart-empty-icon">◻</div>
+        <p>Tu carrito está vacío</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ MAIN ══════════════ -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero" aria-label="Bienvenida">
+    <div class="hero-accordion" id="hero-accordion">
+      <div class="hero-accordion-item bcard active" data-index="0" data-target="burgers">
+        <img src="mpm435q4-home-burgers.webp" alt="Burgers" loading="eager">
+        <span class="hero-accordion-tag">Estrella</span>
+        <span class="hero-accordion-label">Burgers</span>
+      </div>
+      <div class="hero-accordion-item bcard" data-index="1" data-target="sides">
+        <img src="mpm435qg-home-sides.webp" alt="Sides" loading="eager">
+        <span class="hero-accordion-tag">Sides</span>
+        <span class="hero-accordion-label">Sides</span>
+      </div>
+      <div class="hero-accordion-item bcard" data-index="2" data-target="shakes">
+        <img src="mpm435qc-home-shakes.webp" alt="Shakes" loading="eager">
+        <span class="hero-accordion-tag">Shakes</span>
+        <span class="hero-accordion-label">Shakes</span>
+      </div>
+      <div class="hero-accordion-item bcard" data-index="3" data-target="sauces">
+        <img src="mpm435qb-home-sauces.webp" alt="Sauces" loading="eager">
+        <span class="hero-accordion-tag">Sauces</span>
+        <span class="hero-accordion-label">Sauces</span>
+      </div>
+      <div class="hero-accordion-item bcard" data-index="4" data-target="drinks">
+        <img src="mpm435q8-home-drinks.webp" alt="Drinks" loading="eager">
+        <span class="hero-accordion-tag">Drinks</span>
+        <span class="hero-accordion-label">Drinks</span>
+      </div>
+      <div class="hero-accordion-item bcard" data-index="5" data-target="cookies">
+        <img src="mpm435q6-home-cookies.webp" alt="Cookies" loading="eager">
+        <span class="hero-accordion-tag">Sweet</span>
+        <span class="hero-accordion-label">Cookies</span>
+      </div>
+    </div>
+
+    <div class="hero-bottom-row">
+      <p class="hero-tagline">
+        <strong>Smash burgers hechas con actitud.</strong> Ingredientes honestos, recetas que van directas al grano. En el corazón de David.
+      </p>
+      <div class="status-badge">
+        <span class="status-dot"></span>
+        Abierto ahora
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Sub-Nav -->
+  <nav class="category-nav" id="category-nav" aria-label="Categorías del menú">
+    <div class="category-nav-inner">
+      <a href="#burgers" class="category-nav-link active">Burgers</a>
+      <a href="#sides" class="category-nav-link">Sides</a>
+      <a href="#sauces" class="category-nav-link">Sauces</a>
+      <a href="#shakes" class="category-nav-link">Shakes</a>
+      <a href="#drinks" class="category-nav-link">Drinks</a>
+      <a href="#cookies" class="category-nav-link">Cookies &amp; Coffee</a>
+    </div>
+  </nav>
+
+  <!-- BURGERS -->
+  <section class="burgers-section" id="burgers">
+    <div class="section-heading">
+      <h2>Nuestras Burgers</h2>
+      <span class="counter mono">Selección destacada</span>
+    </div>
+    <div class="burgers-grid">
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435p6-menu-burgers-original.jpeg" alt="Bacon Jam Burger" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">01 / 08</div>
+          <div class="burger-card-name">Bacon Jam Burger</div>
+          <p class="burger-card-desc">Doble semi smash burger de vacuno selecto, queso cheddar y nuestra Bacon Jam casera con tacos de bacon ahumado y cebolla caramelizada.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435ny-menu-burgers-original-1.jpeg" alt="Sweet Spicy Burger" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">02 / 08</div>
+          <div class="burger-card-name">Sweet Spicy Burger</div>
+          <p class="burger-card-desc">Doble semi smash burger de vacuno selecto, bacon ahumado crujiente, queso cheddar y cebolla caramelizada con salsa holandesa chipotle.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435o3-menu-burgers-original-2.jpeg" alt="Bacon Cheeseburger" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">03 / 08</div>
+          <div class="burger-card-name">Bacon Cheeseburger</div>
+          <p class="burger-card-desc">Doble semi smash burger de vacuno selecto, bacon ahumado crujiente, queso cheddar, con salsa mayonesa ahumada envuelta en pan brioche.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435od-menu-burgers-original-3.jpeg" alt="Truffle Burger" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">04 / 08</div>
+          <div class="burger-card-name">Truffle Burger</div>
+          <p class="burger-card-desc">Doble semi smash burger de vacuno selecto, huevo frito campero con puntilla y queso cheddar con salsa ahumada de trufa negra.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435ol-menu-burgers-original-4.jpeg" alt="Pulled Pork Burger" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">05 / 08</div>
+          <div class="burger-card-name">Pulled Pork Burger</div>
+          <p class="burger-card-desc">Semi smash burger de vacuno selecto, pulled pork, queso cheddar, bacon ahumado laminado y cebolla crunchy con salsa barbacoa.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435om-menu-burgers-original-5.jpeg" alt="Mr Crunchy Chicken" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">06 / 08</div>
+          <div class="burger-card-name">Mr Crunchy Chicken</div>
+          <p class="burger-card-desc">Jugoso contramuslo de corral extra crunchy, macerado en salsa casera de mojo rojo suave, con queso havarti y cebolla caramelizada.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435oo-menu-burgers-original-6.jpeg" alt="Crunchy Chicken Bun" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">07 / 08</div>
+          <div class="burger-card-name">Crunchy Chicken Bun</div>
+          <p class="burger-card-desc">Jugoso contramuslo de corral extra crunchy, lechuga hoja roble verde, tomate pera, y doble queso Havarti con salsa mayo ahumada.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435op-menu-burgers-original-7.jpeg" alt="Single Cheeseburger" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">08 / 08</div>
+          <div class="burger-card-name">Single Cheeseburger</div>
+          <p class="burger-card-desc">Single patty de vacuno selecto, queso cheddar y cebolla a la plancha, con salsa de mayonesa ahumada envuelta en pan brioche.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SIDES -->
+  <section class="burgers-section" id="sides">
+    <div class="section-heading">
+      <h2>Sides</h2>
+      <span class="counter mono">Acompañamientos</span>
+    </div>
+    <div class="burgers-grid">
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qg-home-sides.webp" alt="Patatas House" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">01 / 04</div>
+          <div class="burger-card-name">Patatas House</div>
+          <p class="burger-card-desc">Patatas cortadas a mano, fritas al punto y servidas con nuestra salsa Emmy Bite.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qg-home-sides.webp" alt="Onion Rings" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">02 / 04</div>
+          <div class="burger-card-name">Onion Rings</div>
+          <p class="burger-card-desc">Aros de cebolla rebozados con panko crujiente, servidos con mayo ahumada casera.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qg-home-sides.webp" alt="Loaded Fries" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">03 / 04</div>
+          <div class="burger-card-name">Loaded Fries</div>
+          <p class="burger-card-desc">Patatas cargadas con queso cheddar fundido, bacon crujiente y cebolla caramelizada.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qg-home-sides.webp" alt="Chicken Nuggets" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">04 / 04</div>
+          <div class="burger-card-name">Chicken Nuggets</div>
+          <p class="burger-card-desc">Nuggets de pollo empanizados extra crujientes con salsa a elegir.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SAUCES -->
+  <section class="burgers-section" id="sauces">
+    <div class="section-heading">
+      <h2>Sauces</h2>
+      <span class="counter mono">Salsas de la casa</span>
+    </div>
+    <div class="burgers-grid">
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qb-home-sauces.webp" alt="Emmy Bite" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">01 / 05</div>
+          <div class="burger-card-name">Emmy Bite</div>
+          <p class="burger-card-desc">La salsa insignia de la casa — receta secreta que combina con todo.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qb-home-sauces.webp" alt="Mayo Ahumada" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">02 / 05</div>
+          <div class="burger-card-name">Mayo Ahumada</div>
+          <p class="burger-card-desc">Mayonesa artesanal con ahumado natural, perfecta para dipping.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qb-home-sauces.webp" alt="Holandesa Chipotle" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">03 / 05</div>
+          <div class="burger-card-name">Holandesa Chipotle</div>
+          <p class="burger-card-desc">Salsa holandesa con un kick de chipotle ahumado — dulce, picante, adictiva.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qb-home-sauces.webp" alt="Trufa Negra" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">04 / 05</div>
+          <div class="burger-card-name">Trufa Negra</div>
+          <p class="burger-card-desc">Salsa ahumada de trufa negra para elevar cualquier burger al siguiente nivel.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qb-home-sauces.webp" alt="Barbacoa House" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">05 / 05</div>
+          <div class="burger-card-name">Barbacoa House</div>
+          <p class="burger-card-desc">Barbacoa casera con tomate, melaza y especias — ahumada y dulce.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SHAKES -->
+  <section class="burgers-section" id="shakes">
+    <div class="section-heading">
+      <h2>Shakes</h2>
+      <span class="counter mono">Batidos</span>
+    </div>
+    <div class="burgers-grid">
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qc-home-shakes.webp" alt="Vanilla Shake" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">01 / 04</div>
+          <div class="burger-card-name">Vanilla Shake</div>
+          <p class="burger-card-desc">Batido cremoso de vainilla real con helado artesanal. El clásico que nunca falla.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qc-home-shakes.webp" alt="Chocolate Shake" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">02 / 04</div>
+          <div class="burger-card-name">Chocolate Shake</div>
+          <p class="burger-card-desc">Chocolate intenso con helado cremoso — espeso y satisfactorio.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qc-home-shakes.webp" alt="Strawberry Shake" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">03 / 04</div>
+          <div class="burger-card-name">Strawberry Shake</div>
+          <p class="burger-card-desc">Fresa natural con helado artesanal — fresco y dulce en cada sorbo.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435qc-home-shakes.webp" alt="Shake de Temporada" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">04 / 04</div>
+          <div class="burger-card-name">Shake de Temporada</div>
+          <p class="burger-card-desc">Sabor rotativo que cambia cada mes — pregunta por el especial del momento.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- DRINKS -->
+  <section class="burgers-section" id="drinks">
+    <div class="section-heading">
+      <h2>Drinks</h2>
+      <span class="counter mono">Bebidas</span>
+    </div>
+    <div class="burgers-grid">
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q8-home-drinks.webp" alt="Limonada House" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">01 / 03</div>
+          <div class="burger-card-name">Limonada House</div>
+          <p class="burger-card-desc">Limonada casera hecha al momento con limón natural — con o sin hierbabuena.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q8-home-drinks.webp" alt="Refrescos" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">02 / 03</div>
+          <div class="burger-card-name">Refrescos</div>
+          <p class="burger-card-desc">Selección de refrescos embotellados y de fuente para acompañar tu comida.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q8-home-drinks.webp" alt="Agua" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">03 / 03</div>
+          <div class="burger-card-name">Agua</div>
+          <p class="burger-card-desc">Agua natural o con gas — siempre fría, siempre disponible.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- COOKIES & COFFEE -->
+  <section class="burgers-section" id="cookies">
+    <div class="section-heading">
+      <h2>Cookies &amp; Coffee</h2>
+      <span class="counter mono">The Sweet Line</span>
+    </div>
+    <div class="burgers-grid">
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q6-home-cookies.webp" alt="Chocolate Chip Cookie" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">01 / 04</div>
+          <div class="burger-card-name">Chocolate Chip</div>
+          <p class="burger-card-desc">Cookie de chocolate chip horneada diario — crujiente por fuera, suave por dentro.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q6-home-cookies.webp" alt="Double Chocolate Cookie" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">02 / 04</div>
+          <div class="burger-card-name">Double Chocolate</div>
+          <p class="burger-card-desc">Doble carga de chocolate en masa y chips — para los que no se conforman con poco.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q5-home-coffee.webp" alt="Espresso" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">03 / 04</div>
+          <div class="burger-card-name">Espresso</div>
+          <p class="burger-card-desc">Café de especialidad tostado con cuidado. Shot simple o doble.</p>
+        </div>
+      </article>
+      <article class="burger-card bcard">
+        <div class="burger-card-img">
+          <img src="mpm435q5-home-coffee.webp" alt="Latte" loading="lazy">
+        </div>
+        <div class="burger-card-body">
+          <div class="burger-card-number">04 / 04</div>
+          <div class="burger-card-name">Latte</div>
+          <p class="burger-card-desc">Espresso con leche vaporizada — caliente o frío. El cierre perfecto.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- LIMITED BITES -->
+  <section class="limited-section" id="limited">
+    <div class="section-heading">
+      <h2>Limited Bites</h2>
+      <span class="counter mono">Edición exclusiva</span>
+    </div>
+    <div class="limited-banner">
+      <div class="limited-card bcard">
+        <img src="mpm435qj-limited-bites-ISSUE01.webp" alt="Limited Bites Issue 01" loading="lazy">
+        <div class="limited-card-overlay">
+          <span class="limited-tag">Issue 01</span>
+          <div class="limited-card-title">Pastrami Edition</div>
+        </div>
+      </div>
+      <div class="limited-card bcard">
+        <img src="mpm435qi-limited-bites-ISSUE_02.webp" alt="Limited Bites Issue 02" loading="lazy">
+        <div class="limited-card-overlay">
+          <span class="limited-tag">Issue 02</span>
+          <div class="limited-card-title">Bacon Jam Edition</div>
+        </div>
+      </div>
+      <div class="limited-card bcard">
+        <img src="mpm435qj-limited-bites-ISSUE_COMING_SOON.webp" alt="Coming Soon" loading="lazy">
+        <div class="limited-card-overlay">
+          <span class="limited-tag">Próximamente</span>
+          <div class="limited-card-title">Issue 03</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section class="brand-section" id="nosotros">
+    <div class="section-heading">
+      <h2>House Rules</h2>
+      <span class="counter mono">Nuestras reglas</span>
+    </div>
+    <div class="brand-grid">
+      <div class="brand-rules bcard">
+        <div class="brand-rules-title">Reglas de la<br>Casa</div>
+        <div class="brand-rule"><strong>No eres solo un cliente</strong> — eres parte de la casa.</div>
+        <div class="brand-rule"><strong>Suelta el teléfono.</strong> Deja de scrollear. Empieza a morder momentos reales.</div>
+        <div class="brand-rule"><strong>Comparte la mesa.</strong> Comparte una historia.</div>
+        <div class="brand-rule"><strong>Disfruta cada bocado.</strong> Nunca digas que no a "una más."</div>
+        <div class="brand-rule"><strong>Lo que pasa offline</strong> se queda en la memoria.</div>
+      </div>
+      <div class="brand-purpose bcard">
+        <div class="brand-purpose-kicker">Nuestro propósito</div>
+        <p>Creamos un refugio donde las personas pueden parar, respirar y volver a conectar de verdad. Un espacio físico pensado para desconectar del ruido constante y reconectar con lo esencial: el momento presente, las personas y las experiencias compartidas.</p>
+        <p>A través de la comunidad y una gastronomía cuidada, generamos experiencias que van más allá de lo superficial — creando vínculos, conversaciones y recuerdos que perduran.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UBICACIÓN -->
+  <section class="location-section" id="ubicacion">
+    <div class="section-heading">
+      <h2>Ubicación</h2>
+      <span class="counter mono">David, Chiriquí</span>
+    </div>
+    <div class="location-grid">
+      <div class="location-info bcard">
+        <div class="location-label">Encuéntranos</div>
+        <div class="location-address">Avenida Obaldia,<br>Edificio los Milciades</div>
+        <div class="location-detail"><strong>Dirección:</strong> Frente al Hotel Lleras, Ciudad de David, Chiriquí, Panamá</div>
+        <div class="location-detail"><strong>Horario:</strong> Martes–Domingo · 11:00 — 22:00</div>
+        <div class="location-links">
+          <a href="https://maps.app.goo.gl/AFT6fnoMrEnhJRas8?g_st=ic" target="_blank" rel="noopener noreferrer" class="location-link">Google Maps ↗</a>
+          <a href="https://instagram.com/unpluggedch" target="_blank" rel="noopener noreferrer" class="location-link">@unpluggedch ↗</a>
+        </div>
+      </div>
+      <div class="location-map bcard">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3938.5!2d-82.427!3d8.427!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMjUnMzcuMiJOIDgywrAyNSc0Mi4wIlc!5e0!3m2!1ses!2spa!4v1"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación Pacific Hamburgers"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Pacific <span>Hamburgers</span></div>
+    <div class="footer-social">
+      <a href="https://instagram.com/unpluggedch" target="_blank" rel="noopener noreferrer">Instagram</a>
+      <a href="https://maps.app.goo.gl/AFT6fnoMrEnhJRas8?g_st=ic" target="_blank" rel="noopener noreferrer">Maps</a>
+    </div>
+    <div class="footer-meta">David, Chiriquí — Panamá &copy; 2025</div>
+  </div>
+</footer>
+
+<!-- FAB -->
+<button class="fab" id="fab-order" aria-label="Ordenar ahora">
+  <span class="fab-icon">◉</span> Ordenar Ahora
+</button>
+
+<script>
+(function () {
+  var cartOverlay = document.getElementById('cart-overlay');
+  var cartClose   = document.getElementById('cart-close');
+  var cartTrigger = document.getElementById('cart-trigger');
+  var fabOrder    = document.getElementById('fab-order');
+  var mobileMenu  = document.getElementById('mobile-menu');
+  var menuOpen    = document.getElementById('menu-open');
+  var menuClose   = document.getElementById('menu-close');
+
+  function openCart()  { cartOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeCart() { cartOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+  if (cartTrigger) cartTrigger.addEventListener('click', function (e) { e.preventDefault(); openCart(); });
+  if (fabOrder)    fabOrder.addEventListener('click', openCart);
+  if (cartClose)   cartClose.addEventListener('click', closeCart);
+  cartOverlay.addEventListener('click', function (e) { if (e.target === cartOverlay) closeCart(); });
+
+  function openMobileMenu()  { mobileMenu.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeMobileMenu() { mobileMenu.classList.remove('open'); document.body.style.overflow = ''; }
+  window.closeMobileMenu = closeMobileMenu;
+
+  if (menuOpen)  menuOpen.addEventListener('click', openMobileMenu);
+  if (menuClose) menuClose.addEventListener('click', closeMobileMenu);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { closeCart(); closeMobileMenu(); }
+  });
+
+  // Hero accordion — hover to expand, click to scroll
+  var accordion   = document.getElementById('hero-accordion');
+  var navH        = 64;
+  var catH        = 46;
+  var scrollOff   = navH + catH + 16;
+
+  if (accordion) {
+    var items = accordion.querySelectorAll('.hero-accordion-item');
+    items.forEach(function (item) {
+      item.addEventListener('mouseenter', function () {
+        items.forEach(function (el) { el.classList.remove('active'); });
+        item.classList.add('active');
+      });
+      item.addEventListener('click', function () {
+        items.forEach(function (el) { el.classList.remove('active'); });
+        item.classList.add('active');
+        var target = item.getAttribute('data-target');
+        if (target) {
+          var section = document.getElementById(target);
+          if (section) {
+            var y = section.getBoundingClientRect().top + window.pageYOffset - scrollOff;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+          }
+        }
+      });
+    });
+  }
+
+  // Category nav — smooth scroll + scroll spy
+  var catNav = document.getElementById('category-nav');
+  if (catNav) {
+    var catLinks   = catNav.querySelectorAll('.category-nav-link');
+    var sectionIds = ['burgers', 'sides', 'sauces', 'shakes', 'drinks', 'cookies'];
+
+    catLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var id      = link.getAttribute('href').slice(1);
+        var section = document.getElementById(id);
+        if (section) {
+          var y = section.getBoundingClientRect().top + window.pageYOffset - scrollOff;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      });
+    });
+
+    function updateActiveNav() {
+      var scrollY  = window.scrollY + scrollOff + 40;
+      var activeId = sectionIds[0];
+      sectionIds.forEach(function (id) {
+        var sec = document.getElementById(id);
+        if (sec && sec.offsetTop <= scrollY) activeId = id;
+      });
+      catLinks.forEach(function (link) {
+        link.classList.toggle('active', link.getAttribute('href').slice(1) === activeId);
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav, { passive: true });
+    updateActiveNav();
+  }
+})();
+</script>
+
+</body>
+</html>
